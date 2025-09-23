@@ -7,6 +7,11 @@ body,*{
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+.container-xxl{
+    padding: 0 !important;
+    max-width: 1800px !important;
+}
+
 /* Header */
 header{
     position: fixed;
@@ -21,8 +26,25 @@ header{
 }
 
 /* ProductList */
-.products-container{
-    padding: 5rem 0;
+.main-prod-container{
+    padding: 4rem 0;
+}
+.sort-container{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.sort-container select{
+    width: fit-content;
+    margin-left: 0.5rem;
+    border: none;
+}
+
+.form-select:focus{
+    box-shadow: none !important;
+    border: none !important;
 }
 /* ProductItem */
 .img-container{
@@ -58,6 +80,15 @@ header{
     font-weight: 800 !important;
 }
 
+.star-icon{
+    font-size: 12px;
+    color: black;
+}
+.rating-box{
+    font-size: 12px;
+    margin: auto 0;
+}
+
 /* Product Modal*/
 .prod-modal{
     display: none;
@@ -80,14 +111,19 @@ header{
 .prod-modal-content{
     background-color: white;
     margin: 15% auto;
-    padding: 2rem;
+    padding: 1rem;
     max-width: 700px;
     min-width: 360px;
+    max-height: 420px;
+}
+
+.prod-modal-content .img-container{
+    max-height: 202px;
 }
 
 .prod-modal-content img{
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
 }
 
 .prod-modal-content img.close-icon{
@@ -95,12 +131,34 @@ header{
     height: 20px;
 }
 
-.moda-right{
+.modal-right{
+    padding: 0.8rem 0.5rem 0.8rem 0;
     width:100%;
+    max-height: 316px;
+}
+
+.modal-right .item-title{
+    font-weight: bold;
+}
+
+
+.modal-right-scroll{
+    overflow-y: scroll;
 }
 
 .modal-prod-qty{
     width: fit-content;
+}
+
+.prod-modal-content .accordion-button{
+    padding: 0.5rem 0.8rem !important;
+}
+.accordion-button:not(.collapsed){
+    background-color: transparent !important;
+}
+
+.accordion-button:focus{
+    box-shadow: none !important;
 }
 
 
@@ -115,13 +173,16 @@ header{
 }
 
 .cart-popup{
-    position: absolute;
+    position: fixed;
     background-color: white;
     width: 400px;
-    right: 0;
-    top: 75px;
+    right:0;
+    top: 61px;
 }
 
+.cart-popup ul{
+    padding-right:2rem ;
+}
 
 /* Cart Item */
 .cart-item-box{
@@ -172,11 +233,12 @@ header{
     text-align: center;
     font-family: "Bebas Neue", sans-serif;
     font-size: 20px;
+    padding-top: 1.5rem;
 }
 .checkout-btn{
     border: none;
     width: fit-content;
-    margin: 1rem auto;
+    margin: 2rem auto;
     padding: 0.5rem 7rem;
     background-color: black;
     color: white;
@@ -184,9 +246,91 @@ header{
     border-radius: 25px;
 }
 
+/* Footer */
+footer{
+    background-color: #F0F0F0;
+    padding: 2rem;
+}
+
+.footer-logo{
+    height: 25px;
+    margin: 0 auto;
+}
+.social-media-icons{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+footer .accordion-item{
+    /* width: fit-content; */
+    background-color: transparent !important;
+    border: none !important;
+    margin: 0 auto;
+}
+
+footer .accordion-item button{
+    background-color: transparent !important;
+    padding:0.8rem !important;
+    gap: 2rem;
+    font-size: 18px;
+}
+
+footer .accordion-item .accordion-body{
+    padding: 0.2rem;
+    font-size: 15px;
+}
+
+footer .accordion-item .accordion-body:hover{
+    text-decoration: underline;
+}
+
+footer .copyright-text{
+    margin: 0 auto;
+}
+
+footer .desktop-nav{
+    gap: 7rem;
+    padding-right: 3rem;
+}
+
+.footer-nav-item ul{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 0;
+}
+.footer-nav-item li{
+    list-style: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+.footer-nav-item li:hover{
+    text-decoration: underline;
+}
+
+footer .copyright-text{
+    font-size: 10px;
+}
+
+
+
+
 @media screen and (min-width: 768px) {
 
+    .main-prod-container{
+        padding: 6rem 0;
+    }
+
+    /* Cart Item */
+    .cart-popup{
+        top: 93px;
+    }
+
     /* ProductItem */
+    .products-container{
+        padding: 0 2rem;
+    }
     .item-container .img-container{
     padding: 2rem;
     }
@@ -202,6 +346,29 @@ header{
         width: 150px;
         height: 150px;
     }
+
+    /* Modal */
+    .prod-modal-content{
+        margin: 10% auto;
+        padding: 2rem;
+    }
+
+    .prod-modal-content img{
+        width: 250px;
+        height: 250px;
+    }
+    .prod-modal-content .img-container{
+        max-height: 317px;
+    }
+
+    .prod-modal-price{
+        font-size: 10px;
+    }
+
+    .modal-right .item-title{
+        font-size: 20px;
+    }
+
 
 }
 

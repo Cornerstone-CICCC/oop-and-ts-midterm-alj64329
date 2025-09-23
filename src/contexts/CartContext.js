@@ -1,7 +1,12 @@
 export class CartContext {
     constructor(){
-        this.cart =[]
+        const storedCart = localStorage.getItem("cart")
+        this.cart =storedCart? JSON.parse(storedCart):[]
         this.listeners =[]
+
+        this.subscribe(this.updateStorage.bind(this))
+
+        this.notifyListners()
     }
 
     getCart(){
@@ -42,9 +47,12 @@ export class CartContext {
     }
 
     removeProduct(item){
-        console.log(item)
         this.cart = this.cart.filter(product => product.id !== item.id)
         this.notifyListners()
+    }
+
+    updateStorage(cart){
+        localStorage.setItem("cart", JSON.stringify(cart))
     }
 
     subscribe(listener){

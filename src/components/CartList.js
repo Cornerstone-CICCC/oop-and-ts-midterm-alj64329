@@ -14,15 +14,17 @@ export class CartList extends Component {
 
   updateCart(cart){
     this.state.cart =cart
-    document.querySelector(".cart-heading").textContent = cart.length===0?"Your cart is empty":"Cart Item"
+    this.cartHeadElement.textContent = cart.length===0?"Your cart is empty":"Cart Item"
     this.productListElement.innerHTML =""
+    const div = document.createElement('div')
     this.state.cart.forEach(product =>{
       const cartItem = new CartItem({
         product,
         cartContext: this.props.cartContext
       }).render()
-      this.productListElement.appendChild(cartItem)
+      div.appendChild(cartItem)
     })
+    this.productListElement.appendChild(div)
 
     const subtotal= this.state.cart.reduce((acc,cur)=>acc+(cur.quantity*cur.price),0)
 
@@ -46,9 +48,13 @@ export class CartList extends Component {
     <div class="cart-heading">Your cart is empty</div>
     <ul class="cart-items"></ul>
     `
-
-    
     this.productListElement = cartElement.querySelector('.cart-items')
+    this.cartHeadElement = cartElement.querySelector('.cart-heading')
+
+    const initialCart = this.props.cartContext.getCart()
+    if(initialCart.length > 0){
+      this.updateCart(initialCart)
+    }
 
     return cartElement
   }

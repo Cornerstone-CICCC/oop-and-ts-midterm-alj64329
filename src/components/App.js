@@ -1,5 +1,6 @@
 import { Component } from "../common/Component.js";
 import { CartList } from "./CartList.js";
+import { Footer } from "./Footer.js";
 import { Header } from "./Header.js";
 import { ProductList } from "./ProductList.js";
 
@@ -38,7 +39,9 @@ export class App extends Component {
     })
     productList.mount(app.querySelector('main'))
 
-
+    const footer = new Footer().render()
+    app.querySelector(".footer").appendChild(footer)
+    
     return app
   }
 }

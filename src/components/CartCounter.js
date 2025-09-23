@@ -18,9 +18,11 @@ export class CartCounter extends Component{
 
     render(){
         const counter = document.createElement('span')
-        counter.textContent = 0
 
         this.counterElement = counter
+
+        const initialCart = this.props.cartContext.getCart()
+        counter.textContent =initialCart.reduce((total, acc) => total + acc.quantity, 0)
 
         return counter
     }

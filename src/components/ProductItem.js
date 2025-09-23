@@ -1,4 +1,5 @@
 import { Component } from "../common/Component.js";
+import { Utils } from "../utility/utilis.js";
 import { ProductModal } from "./ProductModal.js";
 
 export class ProductItem extends Component {
@@ -20,7 +21,10 @@ export class ProductItem extends Component {
     </div>
     <div class="d-flex flex-column">
       <div><span class="item-title">${this.props.item.title}</span></div>
-      <div>${this.props.item.rating.rate}</div>
+      <div class="d-flex rating-box">
+        <div class="rating"></div>
+        ${this.props.item.rating.rate}
+      </div>
       <div class="fw-bold">$ ${this.props.item.price.toFixed(2)}</div>
 
       <div class="d-flex justify-content-center py-2">
@@ -29,7 +33,11 @@ export class ProductItem extends Component {
     </div>
     `
 
-    
+    //render star
+    const element = itemDiv.querySelector(".rating")
+    Utils.starRender(element,this.props.item.rating.rate)
+
+    //Modal show
     itemDiv.addEventListener('click',()=>{
       document.querySelector(".prod-modal").classList.add("modal-active")
       document.querySelector(".prod-modal").innerHTML=""
@@ -40,8 +48,6 @@ export class ProductItem extends Component {
 
       document.querySelector(".prod-modal").appendChild(modal)
     })
-
-
 
     itemDiv.querySelector('.add-cart-btn').addEventListener('click',()=>this.handleAddToCart())
     return itemDiv
