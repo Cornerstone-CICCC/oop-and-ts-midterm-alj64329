@@ -19,7 +19,7 @@ export class CartItem extends Component {
     const li = document.createElement('li')
     li.className="d-flex cart-item-box"
     li.innerHTML =`
-    <div class="cart-img-container">
+    <div class="cart-img-container img-container">
       <img src="${this.props.product.image}" class="cart-prod-img"/>
     </div>
     <div class="cart-right-box">

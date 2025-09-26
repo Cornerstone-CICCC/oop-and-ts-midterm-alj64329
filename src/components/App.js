@@ -1,4 +1,5 @@
 import { Component } from "../common/Component.js";
+import { Utils } from "../utility/utilis.js";
 import { CartList } from "./CartList.js";
 import { Footer } from "./Footer.js";
 import { Header } from "./Header.js";
@@ -31,7 +32,14 @@ export class App extends Component {
     }).render()
     app.querySelector('.cart-list').appendChild(cart)
     app.querySelector('.cart-list').addEventListener('mouseleave',()=>{
-      app.querySelector('.cart-list').classList.remove("show")
+      if(window.innerWidth >=768){
+        app.querySelector('.cart-list').classList.remove("show")
+      }
+    })
+    cart.querySelector(".close-icon").addEventListener("click",()=>{
+      if(window.innerWidth<768){
+        app.querySelector('.cart-list').classList.remove("show")
+      }
     })
 
     const productList = new ProductList({

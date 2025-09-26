@@ -17,6 +17,7 @@ export class CartList extends Component {
     this.cartHeadElement.textContent = cart.length===0?"Your cart is empty":"Cart Item"
     this.productListElement.innerHTML =""
     const div = document.createElement('div')
+    div.className="cart-items-container"
     this.state.cart.forEach(product =>{
       const cartItem = new CartItem({
         product,
@@ -45,6 +46,9 @@ export class CartList extends Component {
     cartElement.className="cart-popup"
 
     cartElement.innerHTML = `
+    <div class ="d-md-none close-icon-wrapper">
+      <img src="../public/close.svg" alt="close icon" class="close-icon">
+    </div>
     <div class="cart-heading">Your cart is empty</div>
     <ul class="cart-items"></ul>
     `

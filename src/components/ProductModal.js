@@ -19,13 +19,13 @@ export class ProductModal extends Component {
     <div class="modal-box">
         <div>
             <div class="d-flex justify-content-end"><img src="../public/close.svg" alt="close icon" class="close-icon"/></div>
-            <div class="d-flex gap-3 gap-md-5">
+            <div class="d-flex flex-column flex-md-row gap-3 gap-md-5">
                 <div class="img-container">
                     <img src="${this.props.item.image}" class="product-img"/>
                 </div>
                 <div class="d-flex flex-column modal-right gap-2 gap-md-3">
                     <div><span class="item-title">${this.props.item.title}</span></div>
-                    <div class="d-flex">
+                    <div class="d-flex modal-rates">
                         <div class="rating rating-box"></div>
                         ${this.props.item.rating.rate}
                     </div>
