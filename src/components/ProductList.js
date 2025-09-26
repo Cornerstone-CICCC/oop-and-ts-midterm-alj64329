@@ -1,8 +1,6 @@
 import { Component } from "../common/Component.js";
-import { CartContext } from "../contexts/CartContext.js";
 import { Utils } from "../utility/utilis.js";
 import { ProductItem } from "./ProductItem.js";
-import { ProductModal } from "./ProductModal.js";
 import { Sidebar } from "./Sidebar.js";
 
 export class ProductList extends Component {
@@ -107,7 +105,7 @@ export class ProductList extends Component {
     })
 
     const div = document.createElement('div')
-    div.className="products-container d-flex justify-content-center justify-content-md-center flex-wrap gap-3 gap-md-5"
+    // div.className="products-container d-flex justify-content-center justify-content-md-center flex-wrap gap-3 gap-md-5"
     subContainer.appendChild(div)
     //sort event
     mainContainer.querySelector('select').addEventListener('change',()=>{
@@ -123,48 +121,64 @@ export class ProductList extends Component {
       });
     })
 
-    // Header search event lisner
+    // Header search
     const header =document.querySelector('header')
-        //search mobile event listner
-    header.querySelector(".mobile-search-icon").addEventListener("click",()=>{
+
     const container =header.querySelector(".mobile-search-container")
-    container.className="mobile-search-container search-container active"
-    
-    const input = document.createElement('input')
-    input.type="search"
-    input.name ="search"
-    input.placeholder="Search for products..."
-    container.appendChild(input)
-    
-    // document.addEventListener('click',(e)=>{
-    //   console.log(e.target)
-    //   if(e.target !== input){
-    //     input.style.display="none"
-    //     container.className="mobile-search-container"
-    //   }
-    // })
+    const icon =header.querySelector(".mobile-search-icon")
 
-      // search mobile event listner
-      let timeout
-      input.addEventListener("keyup",(e)=>{
+    //Input render only once
+    let input = container.querySelector("input[type='search']")
+    if(!input){
+      input = document.createElement('input')
+      input.type="search"
+      input.name ="search"
+      input.style.display="none"
+      input.placeholder="Search for products..."
+      container.appendChild(input)
+    }
 
-        if(e.key==="Enter"){
-          input.style.display="none"
-          container.className="mobile-search-container"
-        }
-        clearTimeout(timeout)
+    let timeout
 
-        timeout = setTimeout(()=>{
-          const query = e.target.value.trim().toLowerCase()
-          if(query){
-            const filtered = Utils.filterByQuery(query, this.state.products)
-            this.renderProducts(div,filtered)
-          }
-        },1000)
-      })
+    icon.addEventListener("click",()=>{
+      container.className="mobile-search-container search-container active"
+      input.style.display ="block";
+      input.focus()
     })
 
-   let timeout
+    function closeSearchBar(){
+      input.style.display ="none"
+      container.className="mobile-search-container"
+    }
+
+    // click outside of search bar when it is in mobile -> escape
+    document.addEventListener("click", (e)=>{
+      if(container.classList.contains("active")&&
+          !container.contains(e.target)&&
+          !icon.contains(e.target)){
+            closeSearchBar()
+          }
+    })
+
+    // search mobile event listner though typing
+
+    input.addEventListener("keyup",(e)=>{
+
+      if(e.key==="Enter"){ //escape when user type enter
+        closeSearchBar()
+      }
+      clearTimeout(timeout)
+
+      timeout = setTimeout(()=>{
+        const query = e.target.value.trim().toLowerCase()
+        if(query){
+          const filtered = Utils.filterByQuery(query, this.state.products)
+          this.renderProducts(div,filtered)
+        }
+      },1000)
+    })
+
+
     //desktop event listner
     header.querySelector("input[name='search']").addEventListener("keyup",(e)=>{
       clearTimeout(timeout)
@@ -176,6 +190,7 @@ export class ProductList extends Component {
         }
       },1000)
     })
+
 
     this.renderProducts(div,this.state.products)
     
@@ -191,14 +206,24 @@ export class ProductList extends Component {
       div.textContent="No Result"
       container.appendChild(div)
     }else{
+      const div = document.createElement("div")
+      div.innerHTML=`
+      <div class="render-results">${products.length} Results showing</div>
+      <div class="products-container d-flex justify-content-center justify-content-md-center flex-wrap gap-3 gap-md-5">
+      </div>
+      `
+
+      container.appendChild(div)
       products.forEach(item=>{
         const productItem = new ProductItem({
           item,
           cartContext: this.props.cartContext
         }).render()
 
-        container.appendChild(productItem)
+        div.querySelector(".products-container").appendChild(productItem)
       })
+
+      
     }
   }
 

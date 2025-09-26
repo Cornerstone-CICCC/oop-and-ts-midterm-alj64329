@@ -38,6 +38,43 @@ header{
     display: flex;
 }
 
+.mobile-nav{
+    display: none;
+}
+
+.mobile-nav.active{
+    display: block;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    top: 0;
+    left: 0;
+    padding: 5rem 3rem;
+
+}
+
+.mobile-nav ul{
+    padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.mobile-nav li{
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav li a{
+    font-family: "Bebas Neue", sans-serif;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 48px;
+}
+
 .search-icon{
     padding-right: 1rem;
 }
@@ -156,7 +193,8 @@ input[type="range"]::-moz-range-thumb {
 
 .prod-none-heading{
     font-size: 22px;
-    padding: 5rem 0;
+    padding: 5rem;
+    text-align: center;
 }
 
 .sort-container{
@@ -167,10 +205,10 @@ input[type="range"]::-moz-range-thumb {
     gap: 1.5rem;
     max-width: 1700px;
     position: fixed;
-    z-index: 5;
+    z-index: 1;
     background-color: white;
     width: 100%;
-    top: 61px;
+    top: 59px;
 }
 
 .sort-container .filter-icon{
@@ -190,6 +228,9 @@ input[type="range"]::-moz-range-thumb {
 /* ProductItem */
 .products-container{
     padding: 0 2rem;
+}
+.render-results{
+    padding: 0 0 2rem 5rem;
 }
 .img-container{
     display: flex;
@@ -254,7 +295,6 @@ input[type="range"]::-moz-range-thumb {
 .modal-active{
     display: block;
 }
-
 
 .prod-modal-content{
     background-color: white;
@@ -387,7 +427,7 @@ div.cart-img-container{
     font-family: "Bebas Neue", sans-serif;
     font-size: 25px;
     text-align: center;
-    padding-bottom: 1rem;
+    padding: 1rem 0;
 }
     /* quantity button */
 .cart-prod-qty, .modal-prod-qty{
@@ -504,12 +544,6 @@ footer .copyright-text{
         color: black;
     }
 
-    /* .desktop-search{
-        padding: 0.5rem 1.5rem;
-        background-color: #F0F0F0;
-        border-radius: 25px;
-    } */
-
     .desktop-search .search-icon{
         opacity:40%;
     }
@@ -552,10 +586,16 @@ footer .copyright-text{
         height: 100px;
         width: auto;
     }
+    .prod-none-heading{
+        padding: 5rem 10rem;
+    }
 
     /* ProductItem */
     .products-container{
         padding-left:5rem ;
+    }
+    .render-results{
+        padding: 0 0 2rem 8rem;
     }
     .item-container .img-container{
         padding: 2rem;
@@ -605,9 +645,4 @@ footer .copyright-text{
     }
 
 
-}
-
-@keyframes scrollText{
-    0% {transform: translateX(0);}
-    100% {transform: translateX(-100%);}
 }

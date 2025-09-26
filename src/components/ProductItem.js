@@ -50,6 +50,11 @@ export class ProductItem extends Component {
     })
 
     itemDiv.querySelector('.add-cart-btn').addEventListener('click',()=>this.handleAddToCart())
+    
+    //product item event listner
+
     return itemDiv
   }
+
+
 }

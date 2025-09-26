@@ -67,9 +67,22 @@ export class Utils {
     static filterByQuery(query,products){
         const pattern = new RegExp(`\\b${query}\\b`, "i");
         const filtered = products
-            .filter(item => pattern.test(item.title)|| pattern.test(item.category) ||pattern.test(item.description))
+            .map(item =>{
+                let score = 0;
+
+                if(pattern.test(item.title)) score+=3
+                if(pattern.test(item.category)) score+=2
+                if(pattern.test(item.description)) score+=1
+
+                return {...item, score}
+            })
+
+        // sort by relavant
+        const sorted = filtered.filter(item=> item.score >0)
+                            .sort((a,b)=>b.score - a.socre)
         
-        return filtered
+        return sorted
     }
+
 
 }
