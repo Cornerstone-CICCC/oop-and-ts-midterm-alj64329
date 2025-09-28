@@ -46,7 +46,7 @@ export class ProductList extends Component {
     const subContainer = mainContainer.querySelector(".sub-prod-container")
 
     let result =[...this.state.products]
-    console.log(result)
+
     //sidebar
     const sidebar = new Sidebar(
       this.categories
@@ -85,6 +85,7 @@ export class ProductList extends Component {
         const val = mainContainer.querySelector("#sort-by").value.split("-")
 
         if(!(val.length===1&& val[0]==="")){
+          console.log(val)
           result = Utils.sortProducts(result, val)
         }
 
@@ -107,19 +108,6 @@ export class ProductList extends Component {
     const div = document.createElement('div')
     // div.className="products-container d-flex justify-content-center justify-content-md-center flex-wrap gap-3 gap-md-5"
     subContainer.appendChild(div)
-    //sort event
-    mainContainer.querySelector('select').addEventListener('change',()=>{
-      const val = mainContainer.querySelector("#sort-by").value.split("-")
-
-      const sortedProducts = Utils.sortProducts(result, val)
-
-      this.renderProducts(div,sortedProducts)
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    })
 
     // Header search
     const header =document.querySelector('header')
@@ -137,8 +125,6 @@ export class ProductList extends Component {
       input.placeholder="Search for products..."
       container.appendChild(input)
     }
-
-    let timeout
 
     icon.addEventListener("click",()=>{
       container.className="mobile-search-container search-container active"
@@ -160,35 +146,62 @@ export class ProductList extends Component {
           }
     })
 
-    // search mobile event listner though typing
-
+    // search mobile event listner 
     input.addEventListener("keyup",(e)=>{
 
       if(e.key==="Enter"){ //escape when user type enter
-        closeSearchBar()
-      }
-      clearTimeout(timeout)
-
-      timeout = setTimeout(()=>{
         const query = e.target.value.trim().toLowerCase()
         if(query){
-          const filtered = Utils.filterByQuery(query, this.state.products)
-          this.renderProducts(div,filtered)
+          result = Utils.filterByQuery(query, this.state.products)
+          const val = mainContainer.querySelector("#sort-by").value.split("-")
+
+          if(!(val.length===1&& val[0]==="")){
+            console.log(val)
+            result = Utils.sortProducts(result, val)
+          }
+          this.renderProducts(div,result)
+          e.target.value =''
+        }else{
+          this.renderProducts(div, this.state.products)
         }
-      },1000)
+        closeSearchBar()
+      }
     })
 
 
     //desktop event listner
-    header.querySelector("input[name='search']").addEventListener("keyup",(e)=>{
-      clearTimeout(timeout)
-      timeout = setTimeout(()=>{
+    header.querySelector("input.desktop-input").addEventListener("keyup",(e)=>{
+        if(e.key==="Enter"){ //escape when user type enter
         const query = e.target.value.trim().toLowerCase()
         if(query){
-          const filtered = Utils.filterByQuery(query, this.state.products)
-          this.renderProducts(div,filtered)
+          result = Utils.filterByQuery(query, this.state.products)
+          const val = mainContainer.querySelector("#sort-by").value.split("-")
+
+          if(!(val.length===1&& val[0]==="")){
+            console.log(val)
+            result = Utils.sortProducts(result, val)
+          }
+
+          this.renderProducts(div,result)
+          e.target.value =''
+        }else{
+          this.renderProducts(div, this.state.products)
         }
-      },1000)
+      }
+    })
+
+    //sort event
+    mainContainer.querySelector('select').addEventListener('change',()=>{
+      const val = mainContainer.querySelector("#sort-by").value.split("-")
+
+      const sortedProducts = Utils.sortProducts(result, val)
+
+      this.renderProducts(div,sortedProducts)
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     })
 
 

@@ -64,8 +64,13 @@ export class Utils {
         return sortedProducts
     }
 
-    static filterByQuery(query,products){
-        const pattern = new RegExp(`\\b${query}\\b`, "i");
+    static escapeRegex(str){
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    static filterByQuery(keyword,products){
+        const query = Utils.escapeRegex(keyword)
+        const pattern = new RegExp(query, "i");
         const filtered = products
             .map(item =>{
                 let score = 0;
@@ -77,9 +82,12 @@ export class Utils {
                 return {...item, score}
             })
 
+
         // sort by relavant
         const sorted = filtered.filter(item=> item.score >0)
                             .sort((a,b)=>b.score - a.socre)
+
+        console.log(sorted)
         
         return sorted
     }
