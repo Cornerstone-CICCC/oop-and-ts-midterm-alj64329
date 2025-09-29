@@ -99,10 +99,7 @@ export class ProductList extends Component {
           behavior: 'smooth'
         });
 
-        Sidebar.resetSlider(sidebar,Utils.value.min,Utils.value.max )
-
-
-        form.reset()
+        Sidebar.resetSlider(sidebar,Utils.value.min,Utils.value.max)
     })
 
     const div = document.createElement('div')

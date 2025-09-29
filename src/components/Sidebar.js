@@ -43,7 +43,6 @@ export class Sidebar extends Component{
             </form>
         </div>
         `
-
     //double slider 
     const slider1 = aside.querySelector("#slider-1")
     const slider2 = aside.querySelector("#slider-2")
@@ -90,7 +89,6 @@ export class Sidebar extends Component{
     aside.querySelector(".close-icon").addEventListener("click", ()=>{
         aside.querySelector(".sidebar-container").classList.remove("show")
     })
-    
 
     return aside
 
