@@ -38,7 +38,7 @@ export class ProductItem extends Component {
     Utils.starRender(element,this.props.item.rating.rate)
 
     //Modal show
-    itemDiv.addEventListener('click',()=>{
+    itemDiv.querySelector(".img-container").addEventListener('click',()=>{
       document.querySelector(".prod-modal").classList.add("modal-active")
       document.querySelector(".prod-modal").innerHTML=""
       const modal = new ProductModal({
